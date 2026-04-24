@@ -4,15 +4,14 @@
 
 ## Technologies
 
-- **Electron** — Application desktop native (fenêtrée, accès OS)
+- **Electron** — Application desktop native 
 - **React** — Interface graphique réactive
 - **Vite** — Build tool rapide
 - **Node.js** — Accès système de fichiers, lancement de processus
-- **Python 3** — Mock de l'agent IA
+- **Python ** — Mock de l'agent IA
 
 ## Architecture (MVC)
 
-```
 electron/          ← Modèle + Contrôleur (Node.js / Electron)
   main.js          ← Point d'entrée, création de la fenêtre
   preload.js       ← Pont sécurisé Electron ↔ React (contextBridge)
@@ -45,9 +44,6 @@ mock/
 
 ## Installation et lancement
 
-```bash
-# Cloner le projet
-git clone <url-du-repo>
 cd orchestrateur-ia
 
 # Installer les dépendances
@@ -60,11 +56,11 @@ npm run dev
 ## Fonctionnalités
 
 ### MVP (Produit Minimum Viable)
-- ▶️ Lancement d'un agent IA via mock Python ou API Jules
-- ⛔ Arrêt d'un agent en cours d'exécution
-- 🖥️ Dashboard de monitoring avec statut en temps réel
-- ⚙️ Création et sauvegarde de configurations d'agents (JSON local)
-- 📋 Historique persistant des exécutions
+- Lancement d'un agent IA via mock Python ou API Jules
+- Arrêt d'un agent en cours d'exécution
+- Dashboard de monitoring avec statut en temps réel
+- Création et sauvegarde de configurations d'agents (JSON local)
+- Historique persistant des exécutions
 
 ### Exigences techniques respectées
 - **Application Desktop native** : Electron (.exe Windows, .app macOS)

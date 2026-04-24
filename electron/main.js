@@ -1,39 +1,52 @@
-const { app, BrowserWindow, ipcMain, Tray, Notification } = require('electron')
+require('dotenv').config()
+
+const { app, BrowserWindow } = require('electron')
 const path = require('path')
 const { setupIpcHandlers } = require('./ipcHandlers')
 
 let mainWindow
-let tray
 
 function createWindow() {
+  console.log("CREATE WINDOW")
+
   mainWindow = new BrowserWindow({
     width: 1200,
     height: 800,
-    minWidth: 900,
-    minHeight: 600,
-    title: 'Orchestrateur IA',
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
-      contextIsolation: true,   // sécurité : React ne peut pas appeler Node directement
-      nodeIntegration: false    // sécurité : idem
+      contextIsolation: true,
+      nodeIntegration: false
     }
   })
 
-  // En dev on charge Vite, en prod on charge le build
-  const isDev = !app.isPackaged
+  const isDev = true
+  console.log("IS DEV =", isDev)
+
   if (isDev) {
+    console.log("LOAD VITE")
     mainWindow.loadURL('http://localhost:5173')
     mainWindow.webContents.openDevTools()
   } else {
+    console.log("LOAD DIST")
     mainWindow.loadFile(path.join(__dirname, '../dist/index.html'))
   }
+
+  mainWindow.webContents.on('did-fail-load', (e, code, desc) => {
+    console.error("FAIL LOAD:", desc)
+  })
+
+  mainWindow.on('closed', () => {
+    console.log("WINDOW CLOSED")
+  })
 }
 
 app.whenReady().then(() => {
+  console.log("APP READY")
   createWindow()
-  setupIpcHandlers(mainWindow) // on branche tous les canaux IPC
+  setupIpcHandlers(mainWindow) // ← c'était manquant !
 })
 
 app.on('window-all-closed', () => {
+  console.log("ALL WINDOWS CLOSED")
   if (process.platform !== 'darwin') app.quit()
 })

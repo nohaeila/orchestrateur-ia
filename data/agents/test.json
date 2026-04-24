@@ -1,7 +1,7 @@
 {
-  "id": "agent-1776693822429",
+  "id": "agent-1777038374407",
   "nom": "test",
-  "repo": "test",
-  "tache": ".",
+  "repo": "https://github.com/nohaeila/10_secondes",
+  "tache": "dans le readme remplace tout le contenu par juste \"test\"",
   "useMock": true
 }

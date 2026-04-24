@@ -1,10 +1,10 @@
 {
-  "name": "orchestrateur-ia",
+  "name": "ia-orchestrator-new",
   "version": "1.0.0",
   "description": "Dashboard Desktop pour piloter des agents IA Jules",
   "main": "electron/main.js",
   "scripts": {
-    "dev": "concurrently \"vite\" \"wait-on http://localhost:5173 && electron .\"",
+    "dev": "concurrently \"vite --port 5173 --strictPort\" \"wait-on http://localhost:5173 && electron .\"",
     "build": "vite build && electron-builder",
     "preview": "vite preview"
   },

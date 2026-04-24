@@ -12,22 +12,33 @@ export default function App() {
     window.electronAPI.chargerConfigs().then(setConfigs)
   }, [])
 
+  // Met à jour la carte de l'agent concerné avec son nouveau statut et la PR
   useEffect(() => {
     window.electronAPI.onAgentUpdate((update) => {
       setAgentsActifs(prev =>
         prev.map(a =>
-          a.id === update.agentId ? { ...a, status: update.status } : a
+          a.id === update.agentId 
+            ? { 
+                ...a, 
+                status: update.status,
+                sessionId: update.sessionId || a.sessionId,
+                etatJules: update.etatJules || a.etatJules,
+                pullRequest: update.pullRequest || a.pullRequest
+              } 
+            : a
         ).filter(a => a.status !== 'arrete')
       )
     })
     return () => window.electronAPI.removeAgentUpdate()
   }, [])
 
+  // Ajoute l'agent à l'interface immédiatement puis lance la session Jules
   async function lancerAgent(config) {
     setAgentsActifs(prev => [...prev, { ...config, status: 'en_cours', startedAt: new Date().toISOString() }])
     await window.electronAPI.lancerAgent(config)
   }
 
+  // Arrête un agent actif et supprime sa session Jules
   async function arreterAgent(agentId) {
     await window.electronAPI.arreterAgent(agentId)
   }

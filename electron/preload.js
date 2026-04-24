@@ -1,6 +1,5 @@
 const { contextBridge, ipcRenderer } = require('electron')
 
-// On expose les méthodes au monde de React (window.electronAPI)
 contextBridge.exposeInMainWorld('electronAPI', {
   // Configs
   chargerConfigs: () => ipcRenderer.invoke('config:charger'),
@@ -15,5 +14,5 @@ contextBridge.exposeInMainWorld('electronAPI', {
   // Logs & Events
   getLogs: () => ipcRenderer.invoke('logs:get'),
   onAgentUpdate: (callback) => ipcRenderer.on('agent:update', (event, data) => callback(data)),
-  removeAgentUpdate: () => ipcRenderer.removeAllListeners('agent:update')
+  removeAgentUpdate: () => ipcRenderer.removeAllListeners('agent:update'),
 })

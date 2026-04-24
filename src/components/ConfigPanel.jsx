@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 // Formulaire pour créer / supprimer des configs d'agents
+
 // Les configs sont sauvegardées en JSON local via Electron
 export default function ConfigPanel({ configs, onSauvegarder, onSupprimer }) {
   const configVide = { id: '', nom: '', repo: '', tache: '', useMock: true }
@@ -43,10 +44,6 @@ export default function ConfigPanel({ configs, onSauvegarder, onSupprimer }) {
         </label>
         <label>Tâche à effectuer
           <textarea name="tache" value={formulaire.tache} onChange={handleChange} placeholder="Ex: Corriger le bug de déconnexion..." />
-        </label>
-        <label className="checkbox-label">
-          <input type="checkbox" name="useMock" checked={formulaire.useMock} onChange={handleChange} />
-          Utiliser le mock Python (pas de vrai appel API)
         </label>
         {message && <div className="message">{message}</div>}
         <button className="btn-lancer" onClick={handleSauvegarder}> Sauvegarder</button>
