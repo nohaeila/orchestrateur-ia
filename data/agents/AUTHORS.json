@@ -1,0 +1,7 @@
+{
+  "id": "agent-1780231679834",
+  "nom": "AUTHORS",
+  "repo": "https://github.com/nohaeila/10_secondes",
+  "tache": "Crée un fichier AUTHORS.md qui liste les contributeurs du projet",
+  "useMock": true
+}

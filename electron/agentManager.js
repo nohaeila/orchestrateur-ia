@@ -17,10 +17,12 @@ function julesRequest(method, path, body = null) {
         'Content-Type': 'application/json'
       }
     }
-
+    // Envoie la requête HTTP et récupère la réponse
     const req = https.request(options, (res) => {
       let data = ''
+      // Accumule les morceaux de réponse au fur et à mesure qu'ils arrivent
       res.on('data', chunk => data += chunk)
+      // Quand la réponse est complète, on parse le JSON
       res.on('end', () => {
         try {
           resolve(JSON.parse(data))
@@ -72,9 +74,11 @@ async function lancerAgent(config, onUpdate) {
       onUpdate({ agentId: config.id, status: 'erreur' })
       return { succes: false }
     }
-
+    // Enregistre l'agent en mémoire avec son sessionId Jules
     agentsActifs.set(config.id, { sessionId: session.id, status: 'en_cours' })
+    // Notifie React pour afficher la carte en "en cours"
     onUpdate({ agentId: config.id, status: 'en_cours', sessionId: session.id })
+    // Lance le polling pour suivre l'évolution de la session toutes les 5s
     demarrerPolling(config.id, session.id, onUpdate)
 
     return { succes: true, sessionId: session.id }

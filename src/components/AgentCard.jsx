@@ -44,7 +44,7 @@ export default function AgentCard({ agent, onArreter }) {
       <div className="agent-temps">⏱ Démarré il y a {tempsEcoule()}</div>
 
       {/* Lien Pull Request si Jules a terminé */}
-      {agent.pullRequest && (
+      {agent.pullRequest && agent.status === 'termine' && (
         <a
           href={agent.pullRequest}
           target="_blank"
